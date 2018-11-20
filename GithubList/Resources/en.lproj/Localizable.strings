@@ -1,0 +1,34 @@
+/* 
+  Localizable.strings
+  GithubList
+
+  Created by Maksymilian Galas on 18/10/2018.
+  Copyright © 2018 Infinity Pi Ltd. All rights reserved.
+*/
+
+// Alert
+
+"alert_confirm" = "Ok";
+"alert_cancel" = "Cancel";
+
+// Error
+
+"error_title" = "Error";
+"error_default" = "Something happened";
+"error_request_limit_reached" = "Request limit reached";
+
+// Warning
+
+"warning_title" = "Warning";
+"warning_request_limit" = "Scrolling lower will result in reaching GitHub request limit. Please don't do that. (This task required me to show number of user's repositories which results in making too many requests)";
+
+// Users
+
+"users_title" = "Users";
+"users_public_repositories" = "Public Repositories";
+
+// Repositories
+
+"repositories_title" = "Repositories";
+"repositories_created_at" = "Created at";
+"repositories_updated_at" = "Updated at";
