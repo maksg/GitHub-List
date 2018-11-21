@@ -16,6 +16,8 @@
 "error_title" = "Błąd";
 "error_default" = "Coś się stało";
 "error_request_limit_reached" = "Osiągnięto limit zapytań";
+"error_invalid_url" = "Nieprawidłowy URL";
+"error_invalid_endpoint" = "Nieprawidłowy endpoint";
 
 // Warning
 

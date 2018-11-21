@@ -12,7 +12,7 @@ class RepositoriesCellViewModel: ViewModel {
     
     // MARK: ViewModel - Properties
     
-    var injector: InjectorProtocol?
+    var injector: InjectorProtocol
     
     // MARK: Properties
     
@@ -70,8 +70,8 @@ class RepositoriesCellViewModel: ViewModel {
     
     // MARK: Initialization
     
-    init(withRepository repository: Repository) {
-        self.injector = nil
+    convenience init(withInjector injector: InjectorProtocol, andRepository repository: Repository) {
+        self.init(withInjector: injector)
         self.repository = repository
     }
     

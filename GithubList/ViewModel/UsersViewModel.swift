@@ -43,14 +43,11 @@ class UsersViewModel: ViewModel {
     
     // MARK: ViewModel - Properties
     
-    let injector: InjectorProtocol?
-    
-    // MARK: Private - Properties
-    
-    private var downloadingData: Bool
+    let injector: InjectorProtocol
     
     // MARK: Private(set) - Properties
     
+    private(set) var downloadingData: Bool
     private(set) var didShowWarning: Bool
     
     private(set) var users: [User]
@@ -91,7 +88,7 @@ class UsersViewModel: ViewModel {
         
         self.downloadingData = true
         
-        self.injector?.apiRequest.getUsers(sinceId: sinceId, completionHandler: { [weak self] (users, error) in
+        self.injector.apiRequest.getUsers(sinceId: sinceId, completionHandler: { [weak self] (users, error) in
             self?.downloadingData = false
             
             guard let `self` = self else {
@@ -110,7 +107,7 @@ class UsersViewModel: ViewModel {
                 self.users += users
 
                 self.userViewModels = self.users.map {
-                    UsersCellViewModel(withUser: $0)
+                    UsersCellViewModel(withInjector: self.injector, andUser: $0)
                 }
                 
                 self.delegate?.usersViewModel(self, didGetUsersWithError: nil)
@@ -119,7 +116,7 @@ class UsersViewModel: ViewModel {
     }
     
     func getUser(_ user: User) {
-        self.injector?.apiRequest.getUser(login: user.login, completionHandler: { [weak self] (user, error) in
+        self.injector.apiRequest.getUser(login: user.login, completionHandler: { [weak self] (user, error) in
             guard let `self` = self else {
                 return
             }
@@ -130,7 +127,7 @@ class UsersViewModel: ViewModel {
                 }
                 
                 self.users[index] = user
-                self.userViewModels[index] = UsersCellViewModel(withUser: user)
+                self.userViewModels[index] = UsersCellViewModel(withInjector: self.injector, andUser: user)
                 
                 self.delegate?.usersViewModel(self, didGetUserWithIndex: index, withError: nil)
             }

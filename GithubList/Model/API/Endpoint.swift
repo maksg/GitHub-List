@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Endpoint {
+enum Endpoint: Equatable {
     
     case getUsers(sinceId: String?)
     case getUser(login: String)
@@ -44,11 +44,11 @@ enum Endpoint {
         get {
             switch self {
             case .getUsers:
-                return "users"
+                return "/users"
             case .getUser(let login):
-                return "users/\(login)"
+                return "/users/\(login)"
             case .getRepositories(let login, _):
-                return "users/\(login)/repos"
+                return "/users/\(login)/repos"
             }
         }
     }

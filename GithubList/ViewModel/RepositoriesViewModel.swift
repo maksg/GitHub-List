@@ -16,18 +16,14 @@ class RepositoriesViewModel: ViewModel {
     
     // MARK: ViewModel - Properties
     
-    let injector: InjectorProtocol?
-    
-    // MARK: Private - Properties
-    
-    private var downloadingData: Bool
-    
-    private var currentPage: Int
+    let injector: InjectorProtocol
     
     // MARK: Private(set) - Properties
     
-    private(set) var user: User?
+    private(set) var downloadingData: Bool
+    private(set) var currentPage: Int
     
+    private(set) var user: User?
     private(set) var repositories: [Repository]
     
     // MARK: Properties
@@ -71,7 +67,7 @@ class RepositoriesViewModel: ViewModel {
         
         self.downloadingData = true
         
-        self.injector?.apiRequest.getRepositories(userLogin: userLogin, page: self.currentPage, completionHandler: { [weak self] (repositories, error) in
+        self.injector.apiRequest.getRepositories(userLogin: userLogin, page: self.currentPage, completionHandler: { [weak self] (repositories, error) in
             self?.downloadingData = false
             
             guard let `self` = self else {
@@ -95,7 +91,7 @@ class RepositoriesViewModel: ViewModel {
                 self.repositories += repositories
                 
                 self.repositoryViewModels = self.repositories.map {
-                    RepositoriesCellViewModel(withRepository: $0)
+                    RepositoriesCellViewModel(withInjector: self.injector, andRepository: $0)
                 }
                 
                 self.delegate?.repositoriesViewModel(self, didGetRepositoriesWithError: nil)

@@ -15,6 +15,7 @@ class UsersTableViewCell: UITableViewCell, View {
     typealias ViewModelType = UsersCellViewModel
     var viewModel: UsersCellViewModel! {
         didSet {
+            self.avatarImageView.injector = self.viewModel.injector
             self.avatarImageView.imageUrl = self.viewModel.avatarUrl
             self.loginLabel.text = self.viewModel.login
             self.repositoriesLabel.text = self.viewModel.repositories

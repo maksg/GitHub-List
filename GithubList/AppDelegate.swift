@@ -14,9 +14,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     let injector : InjectorProtocol = {
-        let apiRequest = APIRequest()
+        let request = Request(withURL: "https://api.github.com")
+        let apiRequest = APIRequest(withRequest: request)
+        let imageCache = NSCache<AnyObject, AnyObject>()
         
-        return Injector(apiRequest: apiRequest)
+        return Injector(withApiRequest: apiRequest, andImageCache: imageCache)
     }()
 
 

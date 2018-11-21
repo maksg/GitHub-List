@@ -1,19 +1,19 @@
 //
-//  Injector.swift
-//  GithubList
+//  InjectorMock.swift
+//  GithubListTests
 //
-//  Created by Maksymilian Galas on 18/10/2018.
+//  Created by Maksymilian Galas on 22/11/2018.
 //  Copyright © 2018 Infinity Pi Ltd. All rights reserved.
 //
 
 import Foundation
 
-class Injector: InjectorProtocol {
+class InjectorMock: InjectorProtocol {
     
-    // MARK: Private(set) Properties
+    // MARK: Properties
     
-    private(set) var apiRequest: APIRequestProtocol
-    private(set) var imageCache: NSCache<AnyObject, AnyObject>
+    var apiRequest: APIRequestProtocol
+    var imageCache: NSCache<AnyObject, AnyObject>
     
     // MARK: Initialization
     

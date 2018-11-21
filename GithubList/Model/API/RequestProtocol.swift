@@ -10,12 +10,18 @@ import Foundation
 
 protocol RequestProtocol {
     
+    // MARK: Properties
+    
+    var apiURL: String { get }
+    var endpoint: Endpoint! { get set }
+    
     // MARK: Initialization
     
-    init(withURL apiUrl: String, forEndpoint endpoint: Endpoint)
+    init(withURL apiUrl: String)
     
     // MARK: Methods
     
+    func getRequest() throws -> URLRequest
     func makeRequest(completionHandler: @escaping (Error?) -> Void)
     func makeRequest<ResponseData: ResponseDataProtocol>(completionHandler: @escaping (ResponseData?, Error?) -> Void)
     

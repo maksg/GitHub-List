@@ -1,18 +1,18 @@
 //
-//  APIRequest.swift
+//  APIRequestMock.swift
 //  GithubList
 //
-//  Created by Maksymilian Galas on 18/10/2018.
+//  Created by Maksymilian Galas on 22/11/2018.
 //  Copyright © 2018 Infinity Pi Ltd. All rights reserved.
 //
 
 import Foundation
 
-class APIRequest: APIRequestProtocol {
+class APIRequestMock: APIRequestProtocol {
     
-    // MARK: Private Properties
+    // MARK: Properties
     
-    private var request: RequestProtocol
+    var request: RequestProtocol
     
     // MARK: Initialization
     

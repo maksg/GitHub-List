@@ -120,7 +120,7 @@ class UsersViewController: UIViewController, View, UITableViewDataSource, UITabl
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let reposVC = segue.destination as? RepositoriesViewController {
             if let user = (sender as? UsersCellViewModel)?.user {
-                reposVC.viewModel = RepositoriesViewModel(withInjector: self.viewModel.injector!, andUser: user)
+                reposVC.viewModel = RepositoriesViewModel(withInjector: self.viewModel.injector, andUser: user)
             }
         }
     }

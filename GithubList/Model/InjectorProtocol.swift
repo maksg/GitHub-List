@@ -10,6 +10,7 @@ import Foundation
 
 protocol InjectorProtocol {
     
-    var apiRequest : APIRequestProtocol { get }
+    var apiRequest: APIRequestProtocol { get }
+    var imageCache: NSCache<AnyObject, AnyObject> { get }
     
 }

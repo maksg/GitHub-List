@@ -8,34 +8,49 @@
 
 import Foundation
 
-enum RequestError: String, Error {
-    case invalidURL
+enum RequestError: Error, LocalizedError {
+    case invalidUrl
+    case invalidEndpoint
+    
+    public var errorDescription: String? {
+        get {
+            switch self {
+            case .invalidUrl:
+                return Translation.Error.invalidUrl.localized
+            case .invalidEndpoint:
+                return Translation.Error.invalidEndpoint.localized
+            }
+        }
+    }
 }
 
 class Request: RequestProtocol {
     
     // MARK: Properties
     
-    private let apiURL: String
-    private let endpoint: Endpoint
+    let apiURL: String
+    var endpoint: Endpoint!
     
     // MARK: RequestProtocol - Initialization
     
-    required init(withURL apiUrl: String, forEndpoint endpoint: Endpoint) {
+    required init(withURL apiUrl: String) {
         self.apiURL = apiUrl
-        self.endpoint = endpoint
     }
     
-    // MARK: Private Methods
+    // MARK: Methods
     
-    private func getRequest(withURL apiUrl: String, forEndpoint endpoint: Endpoint) throws -> URLRequest {
-        let method = endpoint.method
-        let parameters = endpoint.parameters
-        var headers = endpoint.headers
+    func getRequest() throws -> URLRequest {
+        guard endpoint != nil else {
+            throw RequestError.invalidEndpoint
+        }
+        
+        let method = self.endpoint.method
+        let parameters = self.endpoint.parameters
+        var headers = self.endpoint.headers
         headers["Content-Type"] = "application/json"
         
-        let urlString = apiURL + endpoint.path
-        var urlComponents = URLComponents(string: urlString)
+        var urlComponents = URLComponents(string: apiURL)
+        urlComponents?.path = endpoint.path
         
         if method == .get {
             if parameters.count > 0 {
@@ -44,7 +59,7 @@ class Request: RequestProtocol {
         }
         
         guard let url = urlComponents?.url else {
-            throw RequestError.invalidURL
+            throw RequestError.invalidUrl
         }
         
         var request = URLRequest(url: url)
@@ -57,19 +72,13 @@ class Request: RequestProtocol {
         
         request.cachePolicy = .returnCacheDataElseLoad
         
-        print(url.absoluteString)
-        print(headers)
-        print(parameters)
-        
         return request
     }
-    
-    // MARK: Methods
     
     func makeRequest(completionHandler: @escaping (Error?) -> Void) {
         let request: URLRequest
         do {
-            request = try getRequest(withURL: self.apiURL, forEndpoint: self.endpoint)
+            request = try self.getRequest()
         }
         catch {
             completionHandler(error)
@@ -88,7 +97,7 @@ class Request: RequestProtocol {
     func makeRequest<ResponseData: ResponseDataProtocol>(completionHandler: @escaping (ResponseData?, Error?) -> Void) {
         let request: URLRequest
         do {
-            request = try getRequest(withURL: self.apiURL, forEndpoint: self.endpoint)
+            request = try self.getRequest()
         }
         catch {
             completionHandler(nil, error)

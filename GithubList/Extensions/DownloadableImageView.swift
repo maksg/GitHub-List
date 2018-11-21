@@ -8,19 +8,19 @@
 
 import UIKit
 
-let imageCache = NSCache<AnyObject, AnyObject>()
-
 class DownloadableImageView: UIImageView {
+    
+    var injector: InjectorProtocol?
     
     var imageUrl: String = "" {
         didSet {
             self.image = nil
             
-            guard let url = URL(string: self.imageUrl) else {
+            guard let injector = self.injector, let url = URL(string: self.imageUrl) else {
                 return
             }
             
-            if let imageFromCache = imageCache.object(forKey: url as AnyObject) as? UIImage {
+            if let imageFromCache = injector.imageCache.object(forKey: url as AnyObject) as? UIImage {
                 self.image = imageFromCache
                 return
             }
@@ -29,7 +29,7 @@ class DownloadableImageView: UIImageView {
                 if let data = data {
                     DispatchQueue.main.async {
                         if let imageToCache = UIImage(data: data) {
-                            imageCache.setObject(imageToCache, forKey: url as AnyObject)
+                            injector.imageCache.setObject(imageToCache, forKey: url as AnyObject)
                             if url.absoluteString == self.imageUrl {
                                 self.image = imageToCache
                             }

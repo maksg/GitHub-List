@@ -12,7 +12,7 @@ class UsersCellViewModel: ViewModel {
     
     // MARK: ViewModel - Properties
     
-    var injector: InjectorProtocol?
+    var injector: InjectorProtocol
     
     // MARK: Properties
     
@@ -50,8 +50,8 @@ class UsersCellViewModel: ViewModel {
     
     // MARK: Initialization
     
-    init(withUser user: User) {
-        self.injector = nil
+    convenience init(withInjector injector: InjectorProtocol, andUser user: User) {
+        self.init(withInjector: injector)
         self.user = user
     }
     

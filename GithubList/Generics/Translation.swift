@@ -19,6 +19,8 @@ class Translation {
         case title = "error_title"
         case `default` = "error_default"
         case requestLimitReached = "error_request_limit_reached"
+        case invalidUrl = "error_invalid_url"
+        case invalidEndpoint = "error_invalid_endpoint"
     }
     
     enum Warning: String {

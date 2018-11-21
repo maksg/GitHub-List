@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct User: ResponseDataProtocol {
+struct User: ResponseDataProtocol, Equatable {
     
     var id: Int
     var login: String

@@ -16,6 +16,8 @@
 "error_title" = "Error";
 "error_default" = "Something happened";
 "error_request_limit_reached" = "Request limit reached";
+"error_invalid_url" = "Invalid URL";
+"error_invalid_endpoint" = "Invalid endpoint";
 
 // Warning
 

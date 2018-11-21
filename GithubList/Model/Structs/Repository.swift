@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Repository: ResponseDataProtocol {
+struct Repository: ResponseDataProtocol, Equatable {
     
     var id: Int
     var fullName: String

@@ -10,9 +10,9 @@ import Foundation
 
 protocol ViewModel {
     
-    var injector : InjectorProtocol? { get }
+    var injector: InjectorProtocol { get }
     
-    init(withInjector injector : InjectorProtocol)
+    init(withInjector injector: InjectorProtocol)
     
 }
 

@@ -10,9 +10,9 @@ import Foundation
 
 protocol View {
     
-    associatedtype ViewModelType : ViewModel
+    associatedtype ViewModelType: ViewModel
     
-    var viewModel : ViewModelType! {
+    var viewModel: ViewModelType! {
         get
         set
     }
